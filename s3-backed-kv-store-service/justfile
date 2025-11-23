@@ -12,3 +12,6 @@ run:
 
 test:
     uv run pytest -q tests/
+
+minio:
+    docker-compose up -d minio
