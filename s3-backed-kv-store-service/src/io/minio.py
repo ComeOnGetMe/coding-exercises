@@ -1,12 +1,12 @@
-import boto3
-from src.config import s3_settings
 from src.io.base import BaseClient
+from minio import Minio
+from src.config import minio_settings
 
 
-class S3Client(BaseClient):
+class MinioClient(BaseClient):
     def __init__(self):
-        self.client = boto3.client("s3")
-        self.bucket = s3_settings.BUCKET
+        self.client = Minio(minio_settings.ENDPOINT, access_key=minio_settings.ACCESS_KEY, secret_key=minio_settings.SECRET_KEY)
+        self.bucket = minio_settings.BUCKET
 
     def get_object(self, key: str) -> bytes:
         return self.client.get_object(Bucket=self.bucket, Key=key)["Body"].read()

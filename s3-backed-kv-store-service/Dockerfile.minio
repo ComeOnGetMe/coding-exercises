@@ -1,0 +1,17 @@
+FROM minio/minio:latest
+
+# Set environment variables for MinIO
+# These match the defaults in config.py
+ENV MINIO_ROOT_USER=minioadmin
+ENV MINIO_ROOT_PASSWORD=minioadmin
+
+# Expose MinIO API port (default: 9000) and Console port (default: 9001)
+EXPOSE 9000 9001
+
+# MinIO data directory
+VOLUME ["/data"]
+
+# Start MinIO server
+# The official MinIO image expects the server command with data directory
+CMD ["server", "/data", "--console-address", ":9001"]
+

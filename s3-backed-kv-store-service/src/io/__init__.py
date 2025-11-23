@@ -1,12 +1,16 @@
 from src.config import settings
 from src.io.s3 import S3Client
 from src.io.local import LocalClient
+from src.io.minio import MinioClient
 
 
 def get_storage_client():
-    if settings.STORAGE_BACKEND == "s3":
-        return S3Client()
-    elif settings.STORAGE_BACKEND == "local":
-        return LocalClient(storage_dir=settings.LOCAL_STORAGE_DIR)
-    else:
-        raise ValueError(f"Invalid storage backend: {settings.STORAGE_BACKEND}")
+    match settings.STORAGE_BACKEND:
+        case "s3":
+            return S3Client()
+        case "local":
+            return LocalClient()
+        case "minio":
+            return MinioClient()
+        case _:
+            raise ValueError(f"Invalid storage backend: {settings.STORAGE_BACKEND}")

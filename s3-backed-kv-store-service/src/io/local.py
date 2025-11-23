@@ -1,20 +1,22 @@
 from pathlib import Path
+from src.io.base import BaseClient
+from src.config import local_storage_settings
 
 
-class LocalClient:
+class LocalClient(BaseClient):
     """
     Local file-based storage backend for testing.
     Stores key-value pairs as files in a local directory.
     """
     
-    def __init__(self, storage_dir: str = None):
+    def __init__(self):
         """
         Initialize local storage client.
         
         Args:
             storage_dir: Directory to store files. Defaults to './local_storage'
         """
-        self.storage_dir = Path(storage_dir)
+        self.storage_dir = Path(local_storage_settings.DIR)
         self.storage_dir.mkdir(parents=True, exist_ok=True)
     
     def _get_file_path(self, key: str) -> Path:
