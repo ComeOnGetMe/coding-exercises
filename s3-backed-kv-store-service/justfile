@@ -1,17 +1,21 @@
+# create virtual environment
 env:
     uv venv .venv
 
+# install project dependencies
 install:
     uv sync --extra test
 
+# build docker image
 build:
-    docker build -t s3-backed-kv-store-service .
+    docker build -t kv-store-service:latest -f Dockerfile .
 
-run:
-    docker run -p 8000:8000 s3-backed-kv-store-service
-
+# run unit tests
 test:
     uv run pytest -q tests/
 
-minio:
-    docker-compose up -d minio
+# run service code locally
+start PORT='8000':
+    #!/usr/bin/env bash
+    export PORT={{PORT}}
+    uv run python -m src.main

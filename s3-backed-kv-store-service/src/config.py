@@ -20,19 +20,17 @@ class LoggingSettings(BaseSettings):
     FORMAT: str = os.getenv("LOG_FORMAT", "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
     DATE_FORMAT: str = os.getenv("LOG_DATE_FORMAT", "%Y-%m-%d %H:%M:%S")
 
-class MetricsSettings(BaseSettings):
-    ENABLE: bool = os.getenv("ENABLE_METRICS", "false").lower() == "true"
-
 
 class ServiceSettings(BaseSettings):
     STORAGE_BACKEND: str = os.getenv("STORAGE_BACKEND", "local")
     PORT: int = int(os.getenv("PORT", "8000"))
+    ENABLE_METRICS: bool = os.getenv("ENABLE_METRICS", "false").lower() == "true"
 
-    metrics_settings: MetricsSettings = Field(default_factory=MetricsSettings)
     logging_settings: LoggingSettings = Field(default_factory=LoggingSettings)
 
 
 settings = ServiceSettings()
+logging_settings = LoggingSettings()
 minio_settings = MinIOSettings()
 s3_settings = S3Settings()
 local_storage_settings = LocalStorageSettings()

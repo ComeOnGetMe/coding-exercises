@@ -101,11 +101,11 @@ signal.signal(signal.SIGINT, signal_handler)
 signal.signal(signal.SIGTERM, signal_handler)
 
 
-# For running with uvicorn directly
+# For running directly with python
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(
-        "main:app",
+        "src.main:app",
         host="0.0.0.0",
         port=settings.PORT,
     )
