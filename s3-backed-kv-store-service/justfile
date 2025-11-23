@@ -2,7 +2,7 @@ env:
     uv venv .venv
 
 install:
-    uv sync --extras test
+    uv sync --extra test
 
 build:
     docker build -t s3-backed-kv-store-service .
