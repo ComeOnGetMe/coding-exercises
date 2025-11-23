@@ -1,0 +1,14 @@
+env:
+    uv venv .venv
+
+install:
+    uv sync --extras test
+
+build:
+    docker build -t s3-backed-kv-store-service .
+
+run:
+    docker run -p 8000:8000 s3-backed-kv-store-service
+
+test:
+    uv run pytest -q tests/

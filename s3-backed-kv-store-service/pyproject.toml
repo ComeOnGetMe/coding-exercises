@@ -1,0 +1,33 @@
+[project]
+name = "kv-store-service"
+version = "0.1.0"
+description = "A small HTTP service that functions as a persistent key–value store, backed by S3 or an S3-compatible store"
+requires-python = ">=3.12,<3.13"
+authors = [
+    { name = "Zhipeng Yan", email = "zhipeng.alan.yan@gmail.com" }
+]
+dependencies = [
+    "fastapi[standard]>=0.115.6",
+    "boto3>=1.35.86",
+    "pydantic-settings>=2.12.0",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.3.4",
+    "pytest-asyncio>=0.24.0",
+]
+
+[tool.uv-dynamic-versioning]
+enable = true
+vcs = "git"
+
+[build-system]
+requires = ["hatchling", "uv-dynamic-versioning"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "uv-dynamic-versioning"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
