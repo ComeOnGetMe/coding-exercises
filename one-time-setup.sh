@@ -27,7 +27,7 @@ ensure_uv() {
 }
 
 
-install_just
-install_uv
+ensure_just
+ensure_uv
 echo "✅ One-time setup complete."
 echo "🚀 You can now run 'just setup' to create the virtual environment and install the dependencies."
