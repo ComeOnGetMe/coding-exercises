@@ -4,7 +4,7 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     STORAGE_BACKEND: str = os.getenv("STORAGE_BACKEND", "local")
-    LOCAL_STORAGE_DIR: str = os.getenv("STORAGE_DIR", "./storage")
+    LOCAL_STORAGE_DIR: str = os.getenv("LOCAL_STORAGE_DIR", "./storage")
     S3_BUCKET: str = os.getenv("S3_BUCKET", "example-bucket")
 
     PORT: int = int(os.getenv("PORT", "8000"))
