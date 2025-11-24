@@ -9,8 +9,14 @@ RUN apt-get update && apt-get install -y \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Install just
-RUN one-time-setup.sh
+# Install just to /usr/local/bin (which is in PATH)
+RUN curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin
+
+# Install uv to /usr/local/bin (which is in PATH)
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
+# Copy dependency files for uv
+COPY pyproject.toml uv.lock ./
 
 # Copy justfile
 COPY justfile ./

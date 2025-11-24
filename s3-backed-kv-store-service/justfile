@@ -6,10 +6,6 @@ env:
 install:
     uv sync --extra test
 
-# build docker image
-build:
-    docker build -t kv-store-service:latest -f Dockerfile .
-
 # run unit tests
 test:
     uv run pytest -q tests/
